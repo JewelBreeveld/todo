@@ -24,7 +24,9 @@ export default {
         title: this.title,
         completed: false
       };
+      //send add-todo to parent component
       this.$emit("add-todo", newTodo);
+      //clear form after submitting new todo
       this.title = "";
     }
   }
