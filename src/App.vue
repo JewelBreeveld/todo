@@ -35,7 +35,7 @@ export default {
     }
   },
   created() {
-    fetch("https://jsonplaceholder.typicode.com/todos")
+    fetch("https://jsonplaceholder.typicode.com/todos?_limit=10")
       .then(res => res.json())
       .then(data => {
         this.todos = data;
