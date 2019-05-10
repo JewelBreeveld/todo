@@ -27,6 +27,11 @@ export default {
   },
   methods: {
     deleteTodo(id) {
+      fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
+        method: "delete",
+        body: id,
+        headers: { "Content-Type": "text/html" }
+      });
       this.todos = this.todos.filter(todo => todo.id !== id);
     },
     addTodo(newTodo) {
