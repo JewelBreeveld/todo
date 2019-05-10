@@ -29,13 +29,20 @@ export default {
     deleteTodo(id) {
       this.todos = this.todos.filter(todo => todo.id !== id);
     },
-
     addTodo(newTodo) {
-      this.todos = [...this.todos, newTodo];
+      const { title, completed } = newTodo;
+      fetch("https://jsonplaceholder.typicode.com/todos", {
+        method: "post",
+        body: JSON.stringify(newTodo),
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(res => res.json())
+        .then(data => (this.todos = [...this.todos, data]))
+        .catch(err => console.log(err));
     }
   },
   created() {
-    fetch("https://jsonplaceholder.typicode.com/todos")
+    fetch("https://jsonplaceholder.typicode.com/todos?_limit=10")
       .then(res => res.json())
       .then(data => {
         this.todos = data;
