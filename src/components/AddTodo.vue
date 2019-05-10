@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import uuid from "uuid";
 export default {
   name: "AddTodo",
   data() {
@@ -20,11 +19,12 @@ export default {
     addTodo(e) {
       e.preventDefault();
       const newTodo = {
-        id: uuid.v4(),
         title: this.title,
         completed: false
       };
+      //send add-todo to parent component
       this.$emit("add-todo", newTodo);
+      //clear form after submitting new todo
       this.title = "";
     }
   }

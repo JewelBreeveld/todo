@@ -10,6 +10,7 @@
 import Todos from "./components/Todos";
 import Header from "./components/Layout/Header";
 import AddTodo from "./components/AddTodo";
+import fetch from "node-fetch";
 
 export default {
   name: "app",
@@ -21,33 +22,33 @@ export default {
 
   data() {
     return {
-      todos: [
-        {
-          id: 1,
-          title: "Todo One",
-          completed: false
-        },
-        {
-          id: 2,
-          title: "Todo Two",
-          completed: false
-        },
-        {
-          id: 3,
-          title: "Todo Three",
-          completed: false
-        }
-      ]
+      todos: []
     };
   },
   methods: {
     deleteTodo(id) {
       this.todos = this.todos.filter(todo => todo.id !== id);
     },
-
     addTodo(newTodo) {
-      this.todos = [...this.todos, newTodo];
+      const { title, completed } = newTodo;
+      fetch("https://jsonplaceholder.typicode.com/todos", {
+        method: "post",
+        body: JSON.stringify(newTodo),
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(res => res.json())
+        .then(data => (this.todos = [...this.todos, data]))
+        .catch(err => console.log(err));
     }
+  },
+  created() {
+    fetch("https://jsonplaceholder.typicode.com/todos?_limit=10")
+      .then(res => res.json())
+      .then(data => {
+        this.todos = data;
+        console.log("todos", this.todos);
+      })
+      .catch(err => err);
   }
 };
 </script>
