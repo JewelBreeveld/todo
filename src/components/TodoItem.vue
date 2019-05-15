@@ -14,6 +14,7 @@ export default {
   props: ["todo"],
   methods: {
     markComplete() {
+      // eslint-disable-next-line
       console.log(123);
       this.todo.completed = !this.todo.completed;
     }
