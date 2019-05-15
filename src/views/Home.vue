@@ -30,6 +30,7 @@ export default {
         headers: { "Content-Type": "text/html" }
       })
         .then(res => (this.todos = this.todos.filter(todo => todo.id !== id)))
+        // eslint-disable-next-line
         .catch(err => console.log(err));
     },
     addTodo(newTodo) {
@@ -41,6 +42,7 @@ export default {
       })
         .then(res => res.json())
         .then(data => (this.todos = [...this.todos, data]))
+        // eslint-disable-next-line
         .catch(err => console.log(err));
     }
   },
@@ -49,6 +51,7 @@ export default {
       .then(res => res.json())
       .then(data => {
         this.todos = data;
+        // eslint-disable-next-line
         console.log("todos", this.todos);
       })
       .catch(err => err);
