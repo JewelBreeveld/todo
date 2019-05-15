@@ -31,8 +31,9 @@ export default {
         method: "delete",
         body: id,
         headers: { "Content-Type": "text/html" }
-      });
-      this.todos = this.todos.filter(todo => todo.id !== id);
+      })
+        .then(res => (this.todos = this.todos.filter(todo => todo.id !== id)))
+        .catch(err => console.log(err));
     },
     addTodo(newTodo) {
       const { title, completed } = newTodo;
